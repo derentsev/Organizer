@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4ded592fcc754a10b54eb8a87b799454" Name="Diagram1">
+        <EntityTypeShape EntityType="OrganizerDBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganizerDBModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganizerDBModel.AspNetUserLogin" Width="1.5" PointX="8.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganizerDBModel.AspNetUser" Width="1.5" PointX="5.875" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganizerDBModel.AspNetUsersExt" Width="1.5" PointX="3.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganizerDBModel.task_table" Width="1.5" PointX="11.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganizerDBModel.team_table" Width="1.5" PointX="8.75" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="OrganizerDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganizerDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganizerDBModel.FK_AspNetUserExt_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganizerDBModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganizerDBModel.team_task" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganizerDBModel.user_task" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganizerDBModel.user_team" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
