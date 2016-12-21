@@ -15,10 +15,10 @@ namespace Organizer.DAL
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class OrganizerDBEntities : DbContext
+    public partial class OrganizerDBEntities1 : DbContext
     {
-        public OrganizerDBEntities()
-            : base("name=OrganizerDBEntities")
+        public OrganizerDBEntities1()
+            : base("name=OrganizerDBEntities1")
         {
         }
     

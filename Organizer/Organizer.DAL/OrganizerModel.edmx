@@ -580,7 +580,7 @@ warning 6002: The table/view 'OrganizerDB.dbo.user_team' does not have a primary
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
           <End Role="team_table" Type="Self.team_table" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="OrganizerDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="OrganizerDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
@@ -742,7 +742,7 @@ warning 6002: The table/view 'OrganizerDB.dbo.user_team' does not have a primary
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="OrganizerDBModelStoreContainer" CdmEntityContainer="OrganizerDBEntities">
+        <EntityContainerMapping StorageEntityContainer="OrganizerDBModelStoreContainer" CdmEntityContainer="OrganizerDBEntities1">
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="OrganizerDBModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
