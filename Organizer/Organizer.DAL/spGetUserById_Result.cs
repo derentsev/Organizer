@@ -11,15 +11,9 @@ namespace Organizer.DAL
 {
     using System;
     
-    public partial class GetTaskByID_Result
+    public partial class spGetUserById_Result
     {
-        public string Title { get; set; }
-        public string TaskSubject { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
-        public int CreatorID { get; set; }
-        public byte TaskPriority { get; set; }
-        public bool IsFinished { get; set; }
-        public System.DateTime TaskCreationDate { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
     }
 }

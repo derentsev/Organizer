@@ -15,10 +15,10 @@ namespace Organizer.DAL
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class OrganizerDBEntities1 : DbContext
+    public partial class OrganizerDBEntitiesUpdated : DbContext
     {
-        public OrganizerDBEntities1()
-            : base("name=OrganizerDBEntities1")
+        public OrganizerDBEntitiesUpdated()
+            : base("name=OrganizerDBEntitiesUpdated")
         {
         }
     
@@ -35,7 +35,7 @@ namespace Organizer.DAL
         public virtual DbSet<task_table> task_table { get; set; }
         public virtual DbSet<team_table> team_table { get; set; }
     
-        public virtual int CreateTask(string title, string taskSubject, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> creatorID, Nullable<byte> taskPriority, Nullable<bool> isDeleted, Nullable<bool> isFinished, Nullable<System.DateTime> taskCreationDate)
+        public virtual int spCreateTask(string title, string taskSubject, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> creatorID, Nullable<byte> taskPriority, Nullable<bool> isDeleted, Nullable<bool> isFinished, Nullable<System.DateTime> taskCreationDate)
         {
             var titleParameter = title != null ?
                 new ObjectParameter("Title", title) :
@@ -73,19 +73,19 @@ namespace Organizer.DAL
                 new ObjectParameter("TaskCreationDate", taskCreationDate) :
                 new ObjectParameter("TaskCreationDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateTask", titleParameter, taskSubjectParameter, startDateParameter, endDateParameter, creatorIDParameter, taskPriorityParameter, isDeletedParameter, isFinishedParameter, taskCreationDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateTask", titleParameter, taskSubjectParameter, startDateParameter, endDateParameter, creatorIDParameter, taskPriorityParameter, isDeletedParameter, isFinishedParameter, taskCreationDateParameter);
         }
     
-        public virtual int CreateTeam(string name)
+        public virtual int spCreateTeam(string name)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("Name", name) :
                 new ObjectParameter("Name", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateTeam", nameParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateTeam", nameParameter);
         }
     
-        public virtual int CreateUser(string newUserName, string email)
+        public virtual int spCreateUser(string newUserName, string email)
         {
             var newUserNameParameter = newUserName != null ?
                 new ObjectParameter("NewUserName", newUserName) :
@@ -95,46 +95,46 @@ namespace Organizer.DAL
                 new ObjectParameter("Email", email) :
                 new ObjectParameter("Email", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateUser", newUserNameParameter, emailParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateUser", newUserNameParameter, emailParameter);
         }
     
-        public virtual int DeleteTaskByID(Nullable<int> iD)
+        public virtual int spDeleteTaskByID(Nullable<int> iD)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
                 new ObjectParameter("ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteTaskByID", iDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeleteTaskByID", iDParameter);
         }
     
-        public virtual int DeleteTaskByTitle(string title)
+        public virtual int spDeleteTaskByTitle(string title)
         {
             var titleParameter = title != null ?
                 new ObjectParameter("Title", title) :
                 new ObjectParameter("Title", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteTaskByTitle", titleParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeleteTaskByTitle", titleParameter);
         }
     
-        public virtual int DeleteTeamByID(Nullable<int> iD)
+        public virtual int spDeleteTeamByID(Nullable<int> iD)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
                 new ObjectParameter("ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteTeamByID", iDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeleteTeamByID", iDParameter);
         }
     
-        public virtual int DeleteTeamByName(string name)
+        public virtual int spDeleteTeamByName(string name)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("Name", name) :
                 new ObjectParameter("Name", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteTeamByName", nameParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeleteTeamByName", nameParameter);
         }
     
-        public virtual int DeleteTeamTask(Nullable<int> teamID, Nullable<int> taskID)
+        public virtual int spDeleteTeamTask(Nullable<int> teamID, Nullable<int> taskID)
         {
             var teamIDParameter = teamID.HasValue ?
                 new ObjectParameter("TeamID", teamID) :
@@ -144,19 +144,19 @@ namespace Organizer.DAL
                 new ObjectParameter("TaskID", taskID) :
                 new ObjectParameter("TaskID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteTeamTask", teamIDParameter, taskIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeleteTeamTask", teamIDParameter, taskIDParameter);
         }
     
-        public virtual int DeleteUser(Nullable<int> iD)
+        public virtual int spDeleteUser(Nullable<int> iD)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
                 new ObjectParameter("ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteUser", iDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeleteUser", iDParameter);
         }
     
-        public virtual int DeleteUserTask(string userID, Nullable<int> task)
+        public virtual int spDeleteUserTask(string userID, Nullable<int> task)
         {
             var userIDParameter = userID != null ?
                 new ObjectParameter("UserID", userID) :
@@ -166,10 +166,10 @@ namespace Organizer.DAL
                 new ObjectParameter("Task", task) :
                 new ObjectParameter("Task", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteUserTask", userIDParameter, taskParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeleteUserTask", userIDParameter, taskParameter);
         }
     
-        public virtual int DeleteUserTeam(string userID, Nullable<int> teamID)
+        public virtual int spDeleteUserTeam(string userID, Nullable<int> teamID)
         {
             var userIDParameter = userID != null ?
                 new ObjectParameter("UserID", userID) :
@@ -179,47 +179,47 @@ namespace Organizer.DAL
                 new ObjectParameter("TeamID", teamID) :
                 new ObjectParameter("TeamID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteUserTeam", userIDParameter, teamIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeleteUserTeam", userIDParameter, teamIDParameter);
         }
     
-        public virtual ObjectResult<GetAllTasks_Result> GetAllTasks()
+        public virtual int spGetAllTasks()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllTasks_Result>("GetAllTasks");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetAllTasks");
         }
     
-        public virtual ObjectResult<string> GetAllTeams()
+        public virtual int spGetAllTeams()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetAllTeams");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetAllTeams");
         }
     
-        public virtual ObjectResult<GetTaskByID_Result> GetTaskByID(Nullable<int> iD)
-        {
-            var iDParameter = iD.HasValue ?
-                new ObjectParameter("ID", iD) :
-                new ObjectParameter("ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskByID_Result>("GetTaskByID", iDParameter);
-        }
-    
-        public virtual ObjectResult<string> GetTeamByID(Nullable<int> iD)
+        public virtual int spGetTaskByID(Nullable<int> iD)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
                 new ObjectParameter("ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetTeamByID", iDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetTaskByID", iDParameter);
         }
     
-        public virtual ObjectResult<GetUserById_Result> GetUserById(Nullable<int> iD)
+        public virtual int spGetTeamByID(Nullable<int> iD)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
                 new ObjectParameter("ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUserById_Result>("GetUserById", iDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetTeamByID", iDParameter);
         }
     
-        public virtual int InsertTeamTask(Nullable<int> teamID, Nullable<int> taskID)
+        public virtual ObjectResult<spGetUserById_Result> spGetUserById(Nullable<int> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetUserById_Result>("spGetUserById", iDParameter);
+        }
+    
+        public virtual int spInsertTeamTask(Nullable<int> teamID, Nullable<int> taskID)
         {
             var teamIDParameter = teamID.HasValue ?
                 new ObjectParameter("TeamID", teamID) :
@@ -229,10 +229,10 @@ namespace Organizer.DAL
                 new ObjectParameter("TaskID", taskID) :
                 new ObjectParameter("TaskID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertTeamTask", teamIDParameter, taskIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spInsertTeamTask", teamIDParameter, taskIDParameter);
         }
     
-        public virtual int InsertUserTask(string userID, Nullable<int> taskID)
+        public virtual int spInsertUserTask(string userID, Nullable<int> taskID)
         {
             var userIDParameter = userID != null ?
                 new ObjectParameter("UserID", userID) :
@@ -242,10 +242,10 @@ namespace Organizer.DAL
                 new ObjectParameter("TaskID", taskID) :
                 new ObjectParameter("TaskID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUserTask", userIDParameter, taskIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spInsertUserTask", userIDParameter, taskIDParameter);
         }
     
-        public virtual int InsertUserTeam(string userID, Nullable<int> teamID)
+        public virtual int spInsertUserTeam(string userID, Nullable<int> teamID)
         {
             var userIDParameter = userID != null ?
                 new ObjectParameter("UserID", userID) :
@@ -255,10 +255,10 @@ namespace Organizer.DAL
                 new ObjectParameter("TeamID", teamID) :
                 new ObjectParameter("TeamID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUserTeam", userIDParameter, teamIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spInsertUserTeam", userIDParameter, teamIDParameter);
         }
     
-        public virtual int UpdateTaskByID(Nullable<int> iD, string title, string taskSubject, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> creatorID, Nullable<byte> taskPriority, Nullable<bool> isDeleted, Nullable<bool> isFinished, Nullable<System.DateTime> taskCreationDate)
+        public virtual int spUpdateTaskByID(Nullable<int> iD, string title, string taskSubject, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> creatorID, Nullable<byte> taskPriority, Nullable<bool> isDeleted, Nullable<bool> isFinished, Nullable<System.DateTime> taskCreationDate)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
@@ -300,10 +300,10 @@ namespace Organizer.DAL
                 new ObjectParameter("TaskCreationDate", taskCreationDate) :
                 new ObjectParameter("TaskCreationDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateTaskByID", iDParameter, titleParameter, taskSubjectParameter, startDateParameter, endDateParameter, creatorIDParameter, taskPriorityParameter, isDeletedParameter, isFinishedParameter, taskCreationDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUpdateTaskByID", iDParameter, titleParameter, taskSubjectParameter, startDateParameter, endDateParameter, creatorIDParameter, taskPriorityParameter, isDeletedParameter, isFinishedParameter, taskCreationDateParameter);
         }
     
-        public virtual int UpdateTeamByID(string name, Nullable<int> iD)
+        public virtual int spUpdateTeamByID(string name, Nullable<int> iD)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("Name", name) :
@@ -313,10 +313,10 @@ namespace Organizer.DAL
                 new ObjectParameter("ID", iD) :
                 new ObjectParameter("ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateTeamByID", nameParameter, iDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUpdateTeamByID", nameParameter, iDParameter);
         }
     
-        public virtual int UpdateUserEmail(Nullable<int> iD, string email)
+        public virtual int spUpdateUserEmail(Nullable<int> iD, string email)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
@@ -326,10 +326,10 @@ namespace Organizer.DAL
                 new ObjectParameter("Email", email) :
                 new ObjectParameter("Email", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUserEmail", iDParameter, emailParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUpdateUserEmail", iDParameter, emailParameter);
         }
     
-        public virtual int UpdateUserNameByID(Nullable<int> iD, string newUserName)
+        public virtual int spUpdateUserNameByID(Nullable<int> iD, string newUserName)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
@@ -339,10 +339,10 @@ namespace Organizer.DAL
                 new ObjectParameter("NewUserName", newUserName) :
                 new ObjectParameter("NewUserName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUserNameByID", iDParameter, newUserNameParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUpdateUserNameByID", iDParameter, newUserNameParameter);
         }
     
-        public virtual int UpdateUserPhone(Nullable<int> iD, string phoneNumber)
+        public virtual int spUpdateUserPhone(Nullable<int> iD, string phoneNumber)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
@@ -352,7 +352,7 @@ namespace Organizer.DAL
                 new ObjectParameter("PhoneNumber", phoneNumber) :
                 new ObjectParameter("PhoneNumber", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUserPhone", iDParameter, phoneNumberParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUpdateUserPhone", iDParameter, phoneNumberParameter);
         }
     }
 }

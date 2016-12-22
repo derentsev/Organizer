@@ -21,15 +21,15 @@ namespace Organizer.DAL
             this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
-        public int ID { get; set; }
-        public string Title { get; set; }
+        public int TaskID { get; set; }
+        public string TaskTitle { get; set; }
         public string TaskSubject { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
-        public int CreatorID { get; set; }
+        public System.DateTime TaskStartDate { get; set; }
+        public System.DateTime TaskEndDate { get; set; }
+        public int TaskCreatorID { get; set; }
         public byte TaskPriority { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsFinished { get; set; }
+        public bool TaskIsDeleted { get; set; }
+        public bool TaskIsFinished { get; set; }
         public System.DateTime TaskCreationDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

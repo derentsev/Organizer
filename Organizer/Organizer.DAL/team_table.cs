@@ -21,8 +21,8 @@ namespace Organizer.DAL
             this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
-        public int ID { get; set; }
-        public string Name { get; set; }
+        public int TeamID { get; set; }
+        public string TeamName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<task_table> task_table { get; set; }
