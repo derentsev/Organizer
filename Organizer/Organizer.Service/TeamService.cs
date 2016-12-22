@@ -36,7 +36,7 @@ namespace Service
             TeamContext.spUpdateTeamByID(updateTeamName, teamID);
         }
         
-        public IEnumerable<string> GetAllTeam()
+        public IEnumerable<string> GetAllTeams()
         {
            return TeamContext.spGetAllTeams();
         }

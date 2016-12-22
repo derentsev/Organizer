@@ -10,7 +10,7 @@ namespace Service
 {
     public class TeamTaskService
     {
-        OrganizerDBEntitiesUpdated TeamTaskContext = new OrganizerDBEntitiesUpdated();
+        OrganizerDBEntities TeamTaskContext = new OrganizerDBEntities();
 
         public void InsertTeamTask(int teamID, int taskID)
         {

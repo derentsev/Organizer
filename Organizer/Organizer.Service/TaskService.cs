@@ -10,7 +10,7 @@ namespace Service
 {
     public class TaskService
     {
-        OrganizerDBEntitiesUpdated TaskContext = new OrganizerDBEntitiesUpdated();
+        OrganizerDBEntities TaskContext = new OrganizerDBEntities();
 
         public TaskDTO GetTaskByID(int taskID)
         {
@@ -35,13 +35,13 @@ namespace Service
                                      newTask.CreatorID, Convert.ToByte(newTask.TaskPriority), false, false, newTask.TaskCreationDate);
         }
         
-        public void DeleteAuthor(int taskID)
+        public void DeleteTask(int taskID)
         {
             TaskContext.spDeleteTaskByID(taskID);
         }
 
         
-        public void UpdateAuthor(TaskDTO updateTask, int taskID)
+        public void UpdateTask(TaskDTO updateTask, int taskID)
         {
             TaskContext.spUpdateTaskByID(taskID, updateTask.TaskTitle, updateTask.TaskSubject, 
                                          updateTask.TaskStartDate, updateTask.TaskEndDate, updateTask.CreatorID,
