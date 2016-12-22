@@ -15,10 +15,10 @@ namespace Organizer.DAL
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class OrganizerDBEntitiesUpdated : DbContext
+    public partial class OrganizerDBEntities : DbContext
     {
-        public OrganizerDBEntitiesUpdated()
-            : base("name=OrganizerDBEntitiesUpdated")
+        public OrganizerDBEntities()
+            : base("name=OrganizerDBEntities")
         {
         }
     
@@ -35,54 +35,54 @@ namespace Organizer.DAL
         public virtual DbSet<task_table> task_table { get; set; }
         public virtual DbSet<team_table> team_table { get; set; }
     
-        public virtual int spCreateTask(string title, string taskSubject, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> creatorID, Nullable<byte> taskPriority, Nullable<bool> isDeleted, Nullable<bool> isFinished, Nullable<System.DateTime> taskCreationDate)
+        public virtual int spCreateTask(string taskTitle, string taskSubject, Nullable<System.DateTime> taskStartDate, Nullable<System.DateTime> taskEndDate, Nullable<int> taskCreatorID, Nullable<byte> taskPriority, Nullable<bool> taskIsDeleted, Nullable<bool> taskIsFinished, Nullable<System.DateTime> taskCreationDate)
         {
-            var titleParameter = title != null ?
-                new ObjectParameter("Title", title) :
-                new ObjectParameter("Title", typeof(string));
+            var taskTitleParameter = taskTitle != null ?
+                new ObjectParameter("TaskTitle", taskTitle) :
+                new ObjectParameter("TaskTitle", typeof(string));
     
             var taskSubjectParameter = taskSubject != null ?
                 new ObjectParameter("TaskSubject", taskSubject) :
                 new ObjectParameter("TaskSubject", typeof(string));
     
-            var startDateParameter = startDate.HasValue ?
-                new ObjectParameter("StartDate", startDate) :
-                new ObjectParameter("StartDate", typeof(System.DateTime));
+            var taskStartDateParameter = taskStartDate.HasValue ?
+                new ObjectParameter("TaskStartDate", taskStartDate) :
+                new ObjectParameter("TaskStartDate", typeof(System.DateTime));
     
-            var endDateParameter = endDate.HasValue ?
-                new ObjectParameter("EndDate", endDate) :
-                new ObjectParameter("EndDate", typeof(System.DateTime));
+            var taskEndDateParameter = taskEndDate.HasValue ?
+                new ObjectParameter("TaskEndDate", taskEndDate) :
+                new ObjectParameter("TaskEndDate", typeof(System.DateTime));
     
-            var creatorIDParameter = creatorID.HasValue ?
-                new ObjectParameter("CreatorID", creatorID) :
-                new ObjectParameter("CreatorID", typeof(int));
+            var taskCreatorIDParameter = taskCreatorID.HasValue ?
+                new ObjectParameter("TaskCreatorID", taskCreatorID) :
+                new ObjectParameter("TaskCreatorID", typeof(int));
     
             var taskPriorityParameter = taskPriority.HasValue ?
                 new ObjectParameter("TaskPriority", taskPriority) :
                 new ObjectParameter("TaskPriority", typeof(byte));
     
-            var isDeletedParameter = isDeleted.HasValue ?
-                new ObjectParameter("IsDeleted", isDeleted) :
-                new ObjectParameter("IsDeleted", typeof(bool));
+            var taskIsDeletedParameter = taskIsDeleted.HasValue ?
+                new ObjectParameter("TaskIsDeleted", taskIsDeleted) :
+                new ObjectParameter("TaskIsDeleted", typeof(bool));
     
-            var isFinishedParameter = isFinished.HasValue ?
-                new ObjectParameter("IsFinished", isFinished) :
-                new ObjectParameter("IsFinished", typeof(bool));
+            var taskIsFinishedParameter = taskIsFinished.HasValue ?
+                new ObjectParameter("TaskIsFinished", taskIsFinished) :
+                new ObjectParameter("TaskIsFinished", typeof(bool));
     
             var taskCreationDateParameter = taskCreationDate.HasValue ?
                 new ObjectParameter("TaskCreationDate", taskCreationDate) :
                 new ObjectParameter("TaskCreationDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateTask", titleParameter, taskSubjectParameter, startDateParameter, endDateParameter, creatorIDParameter, taskPriorityParameter, isDeletedParameter, isFinishedParameter, taskCreationDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateTask", taskTitleParameter, taskSubjectParameter, taskStartDateParameter, taskEndDateParameter, taskCreatorIDParameter, taskPriorityParameter, taskIsDeletedParameter, taskIsFinishedParameter, taskCreationDateParameter);
         }
     
-        public virtual int spCreateTeam(string name)
+        public virtual int spCreateTeam(string teamName)
         {
-            var nameParameter = name != null ?
-                new ObjectParameter("Name", name) :
-                new ObjectParameter("Name", typeof(string));
+            var teamNameParameter = teamName != null ?
+                new ObjectParameter("TeamName", teamName) :
+                new ObjectParameter("TeamName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateTeam", nameParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateTeam", teamNameParameter);
         }
     
         public virtual int spCreateUser(string newUserName, string email)
@@ -182,32 +182,32 @@ namespace Organizer.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeleteUserTeam", userIDParameter, teamIDParameter);
         }
     
-        public virtual int spGetAllTasks()
+        public virtual ObjectResult<spGetAllTasks_Result> spGetAllTasks()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetAllTasks");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetAllTasks_Result>("spGetAllTasks");
         }
     
-        public virtual int spGetAllTeams()
+        public virtual ObjectResult<string> spGetAllTeams()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetAllTeams");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spGetAllTeams");
         }
     
-        public virtual int spGetTaskByID(Nullable<int> iD)
+        public virtual ObjectResult<spGetTaskByID_Result> spGetTaskByID(Nullable<int> iD)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
                 new ObjectParameter("ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetTaskByID", iDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetTaskByID_Result>("spGetTaskByID", iDParameter);
         }
     
-        public virtual int spGetTeamByID(Nullable<int> iD)
+        public virtual ObjectResult<string> spGetTeamByID(Nullable<int> iD)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
                 new ObjectParameter("ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetTeamByID", iDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spGetTeamByID", iDParameter);
         }
     
         public virtual ObjectResult<spGetUserById_Result> spGetUserById(Nullable<int> iD)

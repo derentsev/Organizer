@@ -11,7 +11,7 @@ namespace Service
     public class TeamService
         
     {
-        OrganizerDBEntitiesUpdated TeamContext = new OrganizerDBEntitiesUpdated();
+        OrganizerDBEntities TeamContext = new OrganizerDBEntities();
 
         public string GetTeamByID(int teamID)
         {
@@ -34,6 +34,11 @@ namespace Service
         public void UpdateTeam(string updateTeamName, int teamID)
         {
             TeamContext.spUpdateTeamByID(updateTeamName, teamID);
+        }
+        
+        public IEnumerable<string> GetAllTeam()
+        {
+           return TeamContext.spGetAllTeams();
         }
     }
 }

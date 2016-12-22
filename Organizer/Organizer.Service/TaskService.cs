@@ -48,4 +48,6 @@ namespace Service
                                          Convert.ToByte(updateTask.TaskPriority), updateTask.IsDeleted, updateTask.IsFinished, updateTask.TaskCreationDate);
         }
     }
+
+    //Add Get All Tasks
 }

@@ -82,6 +82,12 @@
       <DependentUpon>OrganizerModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="spGetAllTasks_Result.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetTaskByID_Result.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="spGetUserById_Result.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>

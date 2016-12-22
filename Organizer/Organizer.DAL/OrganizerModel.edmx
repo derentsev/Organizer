@@ -261,18 +261,18 @@ warning 6002: The table/view 'OrganizerDB.dbo.user_team' does not have a primary
           </ReferentialConstraint>
         </Association>
         <Function Name="spCreateTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Title" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="TaskTitle" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="TaskSubject" Type="nvarchar(max)" Mode="In" />
-          <Parameter Name="StartDate" Type="datetime2" Mode="In" />
-          <Parameter Name="EndDate" Type="datetime2" Mode="In" />
-          <Parameter Name="CreatorID" Type="int" Mode="In" />
+          <Parameter Name="TaskStartDate" Type="datetime2" Mode="In" />
+          <Parameter Name="TaskEndDate" Type="datetime2" Mode="In" />
+          <Parameter Name="TaskCreatorID" Type="int" Mode="In" />
           <Parameter Name="TaskPriority" Type="tinyint" Mode="In" />
-          <Parameter Name="IsDeleted" Type="bit" Mode="In" />
-          <Parameter Name="IsFinished" Type="bit" Mode="In" />
+          <Parameter Name="TaskIsDeleted" Type="bit" Mode="In" />
+          <Parameter Name="TaskIsFinished" Type="bit" Mode="In" />
           <Parameter Name="TaskCreationDate" Type="datetime2" Mode="In" />
         </Function>
         <Function Name="spCreateTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="TeamName" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="spCreateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NewUserName" Type="nvarchar" Mode="In" />
@@ -580,7 +580,7 @@ warning 6002: The table/view 'OrganizerDB.dbo.user_team' does not have a primary
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
           <End Role="team_table" Type="Self.team_table" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="OrganizerDBEntitiesUpdated" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="OrganizerDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
@@ -617,18 +617,18 @@ warning 6002: The table/view 'OrganizerDB.dbo.user_team' does not have a primary
             <End Role="team_table" EntitySet="team_table" />
           </AssociationSet>
           <FunctionImport Name="spCreateTask">
-            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="TaskTitle" Mode="In" Type="String" />
             <Parameter Name="TaskSubject" Mode="In" Type="String" />
-            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
-            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
-            <Parameter Name="CreatorID" Mode="In" Type="Int32" />
+            <Parameter Name="TaskStartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="TaskEndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="TaskCreatorID" Mode="In" Type="Int32" />
             <Parameter Name="TaskPriority" Mode="In" Type="Byte" />
-            <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
-            <Parameter Name="IsFinished" Mode="In" Type="Boolean" />
+            <Parameter Name="TaskIsDeleted" Mode="In" Type="Boolean" />
+            <Parameter Name="TaskIsFinished" Mode="In" Type="Boolean" />
             <Parameter Name="TaskCreationDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spCreateTeam">
-            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="TeamName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spCreateUser">
             <Parameter Name="NewUserName" Mode="In" Type="String" />
@@ -661,12 +661,12 @@ warning 6002: The table/view 'OrganizerDB.dbo.user_team' does not have a primary
             <Parameter Name="UserID" Mode="In" Type="String" />
             <Parameter Name="TeamID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="spGetAllTasks" />
-          <FunctionImport Name="spGetAllTeams" />
-          <FunctionImport Name="spGetTaskByID">
+          <FunctionImport Name="spGetAllTasks" ReturnType="Collection(OrganizerDBModel.spGetAllTasks_Result)" />
+          <FunctionImport Name="spGetAllTeams" ReturnType="Collection(String)" />
+          <FunctionImport Name="spGetTaskByID" ReturnType="Collection(OrganizerDBModel.spGetTaskByID_Result)">
             <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="spGetTeamByID">
+          <FunctionImport Name="spGetTeamByID" ReturnType="Collection(String)">
             <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetUserById" ReturnType="Collection(OrganizerDBModel.spGetUserById_Result)">
@@ -713,6 +713,26 @@ warning 6002: The table/view 'OrganizerDB.dbo.user_team' does not have a primary
             <Parameter Name="PhoneNumber" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="spGetAllTasks_Result">
+          <Property Type="String" Name="TaskTitle" Nullable="false" />
+          <Property Type="String" Name="TaskSubject" Nullable="false" />
+          <Property Type="DateTime" Name="TaskStartDate" Nullable="false" />
+          <Property Type="DateTime" Name="TaskEndDate" Nullable="false" />
+          <Property Type="Int32" Name="TaskCreatorID" Nullable="false" />
+          <Property Type="Byte" Name="TaskPriority" Nullable="false" />
+          <Property Type="Boolean" Name="TaskIsFinished" Nullable="false" />
+          <Property Type="DateTime" Name="TaskCreationDate" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetTaskByID_Result">
+          <Property Type="String" Name="TaskTitle" Nullable="false" />
+          <Property Type="String" Name="TaskSubject" Nullable="false" />
+          <Property Type="DateTime" Name="TaskStartDate" Nullable="false" />
+          <Property Type="DateTime" Name="TaskEndDate" Nullable="false" />
+          <Property Type="Int32" Name="TaskCreatorID" Nullable="false" />
+          <Property Type="Byte" Name="TaskPriority" Nullable="false" />
+          <Property Type="Boolean" Name="TaskIsFinished" Nullable="false" />
+          <Property Type="DateTime" Name="TaskCreationDate" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="spGetUserById_Result">
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
           <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
@@ -722,7 +742,7 @@ warning 6002: The table/view 'OrganizerDB.dbo.user_team' does not have a primary
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="OrganizerDBModelStoreContainer" CdmEntityContainer="OrganizerDBEntitiesUpdated">
+        <EntityContainerMapping StorageEntityContainer="OrganizerDBModelStoreContainer" CdmEntityContainer="OrganizerDBEntities">
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="OrganizerDBModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -846,9 +866,35 @@ warning 6002: The table/view 'OrganizerDB.dbo.user_team' does not have a primary
           <FunctionImportMapping FunctionImportName="spDeleteUser" FunctionName="OrganizerDBModel.Store.spDeleteUser" />
           <FunctionImportMapping FunctionImportName="spDeleteUserTask" FunctionName="OrganizerDBModel.Store.spDeleteUserTask" />
           <FunctionImportMapping FunctionImportName="spDeleteUserTeam" FunctionName="OrganizerDBModel.Store.spDeleteUserTeam" />
-          <FunctionImportMapping FunctionImportName="spGetAllTasks" FunctionName="OrganizerDBModel.Store.spGetAllTasks" />
+          <FunctionImportMapping FunctionImportName="spGetAllTasks" FunctionName="OrganizerDBModel.Store.spGetAllTasks">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrganizerDBModel.spGetAllTasks_Result">
+                <ScalarProperty Name="TaskTitle" ColumnName="TaskTitle" />
+                <ScalarProperty Name="TaskSubject" ColumnName="TaskSubject" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="TaskEndDate" ColumnName="TaskEndDate" />
+                <ScalarProperty Name="TaskCreatorID" ColumnName="TaskCreatorID" />
+                <ScalarProperty Name="TaskPriority" ColumnName="TaskPriority" />
+                <ScalarProperty Name="TaskIsFinished" ColumnName="TaskIsFinished" />
+                <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spGetAllTeams" FunctionName="OrganizerDBModel.Store.spGetAllTeams" />
-          <FunctionImportMapping FunctionImportName="spGetTaskByID" FunctionName="OrganizerDBModel.Store.spGetTaskByID" />
+          <FunctionImportMapping FunctionImportName="spGetTaskByID" FunctionName="OrganizerDBModel.Store.spGetTaskByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrganizerDBModel.spGetTaskByID_Result">
+                <ScalarProperty Name="TaskTitle" ColumnName="TaskTitle" />
+                <ScalarProperty Name="TaskSubject" ColumnName="TaskSubject" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="TaskEndDate" ColumnName="TaskEndDate" />
+                <ScalarProperty Name="TaskCreatorID" ColumnName="TaskCreatorID" />
+                <ScalarProperty Name="TaskPriority" ColumnName="TaskPriority" />
+                <ScalarProperty Name="TaskIsFinished" ColumnName="TaskIsFinished" />
+                <ScalarProperty Name="TaskCreationDate" ColumnName="TaskCreationDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spGetTeamByID" FunctionName="OrganizerDBModel.Store.spGetTeamByID" />
           <FunctionImportMapping FunctionImportName="spGetUserById" FunctionName="OrganizerDBModel.Store.spGetUserById">
             <ResultMapping>
