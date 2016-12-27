@@ -11,6 +11,7 @@ namespace Service
     public class TaskService
     {
         OrganizerDBEntities TaskContext = new OrganizerDBEntities();
+        
 
         public TaskDTO GetTaskByID(int taskID)
         {
