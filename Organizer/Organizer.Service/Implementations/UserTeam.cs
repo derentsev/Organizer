@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Organizer.Service.Interfaces;
 
 namespace Organizer.Service
 {
-    class UserTeam
+    class UserTeam : IUserTeam
     {
         OrganizerDBEntities UserTeamContext = new OrganizerDBEntities();
 
@@ -21,5 +22,4 @@ namespace Organizer.Service
             UserTeamContext.spDeleteUserTeam(Convert.ToString(userID), teamID);
         }
     }
-
 }

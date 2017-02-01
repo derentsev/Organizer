@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Organizer.DAL;
 using Organizer.Service;
+using Organizer.Service.Interfaces;
 
 namespace Service
 {
-    public class TeamService
+    public class TeamService : ITeamServices
         
     {
         OrganizerDBEntities TeamContext = new OrganizerDBEntities();

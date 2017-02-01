@@ -1,4 +1,5 @@
 ﻿using Organizer.Service;
+using Organizer.Service.Interfaces;
 using Service;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,19 @@ namespace Organizer.Api.Controllers
 {
     public class TaskController : ApiController
     {
-        private TaskService tasksService = new TaskService();
+        //private TaskService tasksService = new TaskService();
+        private ITaskService  _repository;      
+
+        public TaskController(IProductRepository repository)
+        {
+            _repository = repository;
+        }
 
         [HttpGet]
         [Route("api/task/{taskId}")]
         public IHttpActionResult GetTaskByID(int taskID)
         {
-            var ReturnedTaskByID = tasksService.GetTaskByID(taskID);           
+            var ReturnedTaskByID = _repository.GetTaskByID(taskID);          
             return this.Ok(ReturnedTaskByID);
         }
 
@@ -25,7 +32,7 @@ namespace Organizer.Api.Controllers
         [Route("api/task/addnewtask")]
         public IHttpActionResult AddTask(TaskDTO newTask)
         {
-            tasksService.AddNewTask(newTask);
+            _repository.AddNewTask(newTask);
             return this.Ok();
         }
 
@@ -33,7 +40,7 @@ namespace Organizer.Api.Controllers
         [HttpDelete]
         public IHttpActionResult DeleteTaskByID(int taskID)
         {
-            tasksService.DeleteTask(taskID);
+            _repository.DeleteTask(taskID);
             return this.Ok();
         }
 
@@ -41,7 +48,7 @@ namespace Organizer.Api.Controllers
         [HttpPut]
         public IHttpActionResult UpdateTaskByID(int taskID, TaskDTO newTaskInfo)
         {
-            tasksService.UpdateTask(newTaskInfo, taskID);
+            _repository.UpdateTask(newTaskInfo, taskID);
             return this.Ok();
         }
 

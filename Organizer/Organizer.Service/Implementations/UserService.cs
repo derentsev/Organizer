@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Organizer.DAL;
 using Organizer.Service;
+using Organizer.Service.Interfaces;
 
 namespace Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
         OrganizerDBEntities UserContext = new OrganizerDBEntities();
 

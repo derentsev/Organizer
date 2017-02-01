@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Organizer.Service.Interfaces;
 
 namespace Organizer.Service
 {
-    class UserTaskService
+    class UserTaskService : IUserTaskService
     {
         OrganizerDBEntities UserTaskContext = new OrganizerDBEntities();
 
