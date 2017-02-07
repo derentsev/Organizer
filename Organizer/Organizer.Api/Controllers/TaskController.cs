@@ -15,7 +15,7 @@ namespace Organizer.Api.Controllers
         //private TaskService tasksService = new TaskService();
         private ITaskService  _repository;      
 
-        public TaskController(IProductRepository repository)
+        public TaskController(ITaskService repository)
         {
             _repository = repository;
         }

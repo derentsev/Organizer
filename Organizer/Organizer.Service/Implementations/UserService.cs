@@ -11,54 +11,57 @@ namespace Service
 {
     public class UserService : IUserService
     {
-        OrganizerDBEntities UserContext = new OrganizerDBEntities();
-
         public UserDTO GetUserByID(int userID)
         {
-           
-            var returnedUser = UserContext.AspNetUsers.Find(userID);
-            //Return message for deleted user
-            if (returnedUser.IsDeleted == true)
+            using (var db = new OrganizerDBEntities())
             {
-                   
+                var returnedUser = db.AspNetUsers.Find(userID);
+                //Check if user is deleted and throw a message
+                UserDTO objDTOUser = new UserDTO();
+                objDTOUser = AutoMapper.Mapper.Map<UserDTO>(returnedUser);
+                return objDTOUser;
             }
-
-            UserDTO objDTOUser = new UserDTO();
-            objDTOUser.Email = returnedUser.Email;
-            objDTOUser.EmailConfirmed = returnedUser.EmailConfirmed;
-            objDTOUser.PasswordHash = returnedUser.PasswordHash;
-            objDTOUser.PhoneNumber = returnedUser.PhoneNumber;
-            objDTOUser.SecurityStamp = returnedUser.SecurityStamp;
-            objDTOUser.UserName = returnedUser.UserName;
-
-            return objDTOUser;
         }
 
         public void AddNewUser(UserDTO newUser)
         {
             //Add rest of the information
-            UserContext.spCreateUser(newUser.UserName, newUser.Email);
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spCreateUser(newUser.UserName, newUser.Email);
+            }
         }
 
         public void DeleteUser(int userID)
         {
-            UserContext.spDeleteUser(userID);
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spDeleteUser(userID);
+            }
         }
 
-
         public void UpdateUserEmail(string newEmail, int userID)
-        {
-            UserContext.spUpdateUserEmail(userID, newEmail);
+        {            
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spUpdateUserEmail(userID, newEmail);
+            }
         }
 
         public void UpdateUsername(string newUsername, int userID)
         {
-            UserContext.spUpdateUserNameByID(userID, newUsername);
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spUpdateUserNameByID(userID, newUsername);
+            }
         }
 
         public void UpdatePhoneNumber(string newPhoneNumber, int userID)
         {
-            UserContext.spUpdateUserPhone(userID, newPhoneNumber);
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spUpdateUserPhone(userID, newPhoneNumber);
+            }
         }
     }
 

@@ -14,12 +14,18 @@ namespace Organizer.Service
 
         public void InsertUserTeam(int userID, int teamID)
         {
-            UserTeamContext.spInsertUserTeam(Convert.ToString(userID), teamID);
+            using (var db = new OrganizerDBEntities())
+            {
+                   db.spInsertUserTeam(Convert.ToString(userID), teamID);
+            }
         }
 
         public void DeleteUserTeam(int userID, int teamID)
-        {
-            UserTeamContext.spDeleteUserTeam(Convert.ToString(userID), teamID);
+        { 
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spDeleteUserTeam(Convert.ToString(userID), teamID);
+            }
         }
     }
 }

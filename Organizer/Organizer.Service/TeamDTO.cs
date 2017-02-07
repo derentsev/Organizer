@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Organizer.Service
 {
-    class TeamDTO
+    public class TeamDTO
     {
         public string TeamName { get; set; }
     }

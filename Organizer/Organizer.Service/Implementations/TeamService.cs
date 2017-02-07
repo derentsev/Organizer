@@ -12,34 +12,48 @@ namespace Service
     public class TeamService : ITeamServices
         
     {
-        OrganizerDBEntities TeamContext = new OrganizerDBEntities();
-
-        public string GetTeamByID(int teamID)
+        public TeamDTO GetTeamByID(int teamID)
         {
-            //If not working use DTO
-            return  Convert.ToString(TeamContext.team_table.Find(teamID));
-           
+            using (var db = new OrganizerDBEntities())
+            {
+                string teamName = Convert.ToString(db.team_table.Find(teamID));
+                TeamDTO objTeamDTO = new TeamDTO();
+                objTeamDTO = AutoMapper.Mapper.Map<TeamDTO>(teamName);
+                return objTeamDTO;
+            }
         }
 
         public void AddNewTeam(string newTeamName)
         {
-            TeamContext.spCreateTeam(newTeamName);
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spCreateTeam(newTeamName);
+            }
         }
 
         public void DeleteTeam(int teamID)
         {
-            TeamContext.spDeleteTeamByID(teamID);
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spDeleteTeamByID(teamID);
+            }
         }
 
 
         public void UpdateTeam(string updateTeamName, int teamID)
         {
-            TeamContext.spUpdateTeamByID(updateTeamName, teamID);
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spUpdateTeamByID(updateTeamName, teamID);
+            }
         }
         
         public IEnumerable<string> GetAllTeams()
         {
-           return TeamContext.spGetAllTeams();
+            using (var db = new OrganizerDBEntities())
+            {
+                return db.spGetAllTeams();
+            }
         }
     }
 }

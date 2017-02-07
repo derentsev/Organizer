@@ -11,16 +11,20 @@ namespace Service
 {
     public class TeamTaskService : ITeamTaskService
     {
-        OrganizerDBEntities TeamTaskContext = new OrganizerDBEntities();
-
         public void InsertTeamTask(int teamID, int taskID)
         {
-            TeamTaskContext.spInsertTeamTask(teamID, taskID);
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spInsertTeamTask(teamID, taskID);
+            }
         }
 
         public void DeleteTeamTask(int taskID, int teamID)
         {
-            TeamTaskContext.spDeleteTeamTask(teamID, taskID);
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spDeleteTeamTask(teamID, taskID);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Organizer.Service
 {
     public class TaskDTO
-    {
+    {        
         public string TaskTitle { get; set; }
         public string TaskSubject { get; set; }
         public DateTime TaskStartDate { get; set; }

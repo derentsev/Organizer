@@ -10,16 +10,20 @@ namespace Organizer.Service
 {
     class UserTaskService : IUserTaskService
     {
-        OrganizerDBEntities UserTaskContext = new OrganizerDBEntities();
-
         public void InsertUserTask(int userID, int taskID)
         { 
-            UserTaskContext.spInsertUserTask(Convert.ToString(userID), taskID);
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spInsertUserTask(Convert.ToString(userID), taskID);
+            }
         }
 
         public void DeleteUserTask(int userID, int teamID)
         {
-            UserTaskContext.spDeleteUserTask(Convert.ToString(userID), teamID);
+            using (var db = new OrganizerDBEntities())
+            {
+                db.spDeleteUserTask(Convert.ToString(userID), teamID);
+            }
         }
     }
 }
