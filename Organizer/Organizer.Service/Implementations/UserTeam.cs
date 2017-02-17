@@ -10,8 +10,6 @@ namespace Organizer.Service
 {
     class UserTeam : IUserTeam
     {
-        OrganizerDBEntities UserTeamContext = new OrganizerDBEntities();
-
         public void InsertUserTeam(int userID, int teamID)
         {
             using (var db = new OrganizerDBEntities())
