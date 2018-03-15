@@ -20,6 +20,7 @@ namespace Service
                 var returnedTask = db.task_table.Find(taskID);
                 TaskDTO objDTOTask = new TaskDTO();
                 objDTOTask = AutoMapper.Mapper.Map<TaskDTO>(returnedTask);
+                int a = 0;
 
                 return objDTOTask;
             }            
